@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="./tmp/figma-plugin-ds.css"> <!-- Figma Plugin DS Styles -->
+        <link rel="stylesheet" href="./tmp/styles.css"> <!-- Your Styles -->
+    </head>
+    <body>
+
+    <div class="p-xxsmall">
+
+        <!-- Select menu -->
+        <div class="label">Shape</div>
+        <select id="shape" class="select-menu mb-xxsmall">
+            <option value="">Please select a shape...</option>
+            <option value="square">Square</option>
+            <option value="triangle" >Triangle</option>
+            <option value="circle" >Circle</option>
+        </select>
+
+        <!-- Count input -->
+        <div class="label">Count</div>
+        <div class="input input--with-icon mb-xxsmall">
+            <div class="icon">#</div>
+            <input id="count" type="input" class="input__field" value="5">
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex p-xxsmall mb-xsmall">
+            <button id="cancel" class='button button--secondary mr-xxsmall'>Cancel</button>
+            <button id="createShapes" class='button button--primary'>Create shapes</button> 
+        </div>
+        
+    </div>
+
+    <script src="./tmp/scripts.js"></script>
+    </body>
+</html>
