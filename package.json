@@ -1,7 +1,7 @@
 {
-  "name": "frontend-boilerplate",
+  "name": "6Spiral-Figma-Plugin",
   "version": "1.0.0",
-  "description": "Boilerplate for creating Figma Plugins",
+  "description": "Figma plugin for creating spiral and helix shapes",
   "main": "gulpfile.js",
   "scripts": {
     "build": "gulp --production",
