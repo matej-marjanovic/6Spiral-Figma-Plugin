@@ -1,86 +1,62 @@
-# Figma Plugin Boilerplate (FPB)
- A starter project for creating Figma Plugins with HTML, CSS (+ SCSS) and vanilla Javascript without any frameworks. It comes pre-setup with a UI library that matches the Figma UI, refer to the [Figma Plugin DS](https://github.com/thomas-lowry/figma-plugin-ds) documentation for usage.
+<img src="https://user-images.githubusercontent.com/2822227/46310803-307acd80-c575-11e8-9015-cb1a066849ea.jpeg" alt="6spiral_logo_image" width="430" height="">
 
-## Contents
-* [Intro](#intro)
-* [What is this and how will it make my life easier](#what-is-this-and-how-will-it-make-my-life-easier)
-* [Getting started](#getting-started)
-* [FAQ](#faq)
+# 🌀6Spiral Figma Plugin v1.0
 
-## Intro
+[![Price: free](https://img.shields.io/badge/price-FREE-0098f7.svg)](https://github.com/matej-marjanovic/6Spiral-Sketch-Plugin/blob/master/LICENSE.txt)
+[![Version: 1.0](https://img.shields.io/badge/version-1.0_-green.svg)](https://github.com/matej-marjanovic/6Spiral-Sketch-Plugin/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/matej-marjanovic/6Spiral-Sketch-Plugin/blob/master/LICENSE.txt)
+[![License: MIT](https://img.shields.io/badge/works_with-Figma-blue.svg)](https://www.figma.com/community/plugin/1074706773545183504)
+[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Make%20great%20looking%20spiral%20and%20helix%20shapes%20in%20Figma&url=https://github.com/matej-marjanovic/6Spiral-Figma-Plugin&hashtags=design,sketch,sketchapp,uiux)
 
-**Goal**—I wanted to create an easy to use starting point for anyone interested in creating a Figma Plugin. If you are comfortable with HTML, CSS, and know a bit of native Javascript, this is designed to help you get a simple performant plugin off the ground. No messing around with any UI frameworks!
+6Spiral is a Figma plugin to draw spirals and it also allows you to convert the 2D spirals into 3D-like helix shapes at a specified angle in parallel projection.
+6Spirals supports creation of the two most common types of spirals: Archimedean Spirals and Logarithmic Spirals.
+*This plugin is based on a plugin that I originally developed for Sketch but that plugin no longer works with the latest version of Sketch.*
 
+# Getting Started
 
-**Why**—When creating a Figma Plugin, one of the constraints is the inability to link to any external scripts, or assets outside of your core plugin files. This means, if you have a folder of images, an external stylesheet, or an external javascript file for your plugin's UI, you cannot link to them. These assets need to either be hosted somewhere on the web, or they need to be bundled into one file. So instead of writing your css in a .css or .scss file, you would need to write everything inside the head tag. This is why many developers opt to use Javascript frameworks and bundlers like Webpack or Rollup—but this way often forces you into doing things in a very Javascript centric way which is not always easy to grasp when you want to use the languages you're already familiar with.
+1. Install the [latest release](https://www.figma.com/community/plugin/1074706773545183504) 
+3. Make or select a shape/artboard and then right click and go to `Plugins -> 🌀6Spiral`  
+4. Change the parameters to make the initial shape of the spiral/helix that you'd like.
 
+<img width="506" alt="6spiral_demo_1" src="https://user-images.githubusercontent.com/2822227/45353519-dd15f080-b56f-11e8-91e1-05ce76b5ff1a.png">
 
-**What**—To simplify this, this boilerplate is already setup with a build configuration specifically for writing Figma Plugins. You can write HTML in the `src/ui/index.html` file, plain old CSS inside the `src/ui/styles/styles.scss` file, and native Javascript inside the `src/ui/js/scripts.js` file. If you want a .png or an .svg in your UI (`index.html`), just place it in the `src/ui/img` directory and reference it as your normally would. When ready, executing the build script will automically inline and bundle all of your external scripts and assets into a single minified .html file in the `dist` directory.
+Plugin will create a spiral with the origin at the center of the selected shape.
+*The center of the spiral shape is not the same as the origin (first point) of the spiral.*
 
-This boilerplate is a pre-configured build process (using a toolkit called Gulp) that makes writing your first plugin easier and faster. If you have never used a build process, it will enables you to approach your plugin in the same way you might approach a basic website. Then by running a single command, it will automate a bunch of stuff behind the scenes to translate your plugin into a finished state ready for use in Figma so that you don't have to do any manual grunt work or change your approach to writing code.
+## Making a Spiral
+![6spiral_making_spirals](https://user-images.githubusercontent.com/2822227/45357080-13586d80-b57a-11e8-851c-8366dbbc45b5.gif)
 
+## Making a Helix
+![6spiral_making_helix](https://user-images.githubusercontent.com/2822227/45357902-a5617580-b57c-11e8-9050-9b617be0d2c8.gif)
 
-### Whats included
-- Pre-configured structure and example user-interface (html, css, and javascript)—located in the `src/ui` directory
-- Pre-configured structure of your plugin code (this is the part of your plugin that interfaces with the Figma API)—located in the `src/main` directory
-- Already configured with a set of UI components from Figma Plugin DS that match the Figma UI (see the Figma Plugin DS documentation for usage)
-- Build process that will:
-    - Inline all of your external assets including: css, javascript, and images (raster images will be base64 encoded, and SVGs included inline)
-    - Minify all of your code for a small bundle size
-    - Eliminate any of your CSS that is not used
+# Few Examples Shapes
 
+## Logarithmic Spirals Example
+![log_spiral_examples_wide](https://user-images.githubusercontent.com/2822227/45360143-89150700-b583-11e8-9fda-bfed87f18dfb.png)
 
-**Using the terminal / command line interface**
-
-Typing in commands to the terminal can feel intimidating. I know it scared me away from going deeper for many years. You don't need to be an expert and there is only four commands that you will need to enter to get started!
-
-**Note** _This starter boilerplate is not setup to support importing and bundling ES6 modules at the current time._
-
-## Getting started
-
-If this is your first time doing anything like this, you will need to download and install [NodeJs](https://nodejs.org/en/) first. If you're looking for a code editor, I highly recommend [VS Code](https://code.visualstudio.com/) by Microsoft. It as an build-in command line terminal and makes it really easy to get started.
-
-### Step 1
-Create a copy of this boilerplate project on your local drive. You can do so by downloading a zip from the green 'Clone or download' button. Or if you are already familiar with the command line, you can enter:
-```bash 
-git clone https://github.com/thomas-lowry/figma-plugin-boilerplate.git
-```
-or, if you don't want the download entire Git history:
-```bash 
-npx degit thomas-lowry/figma-plugin-boilerplate my-plugin
-```
-
-### Step 2
-
-Next you will need to run a terminal command to install this project's dependencies. If you're unfamiliar with this concept, this just downloads bunch of scripts required for the boilerplate to work properly. 
-
-If you're using VS Code, you can `File → Open Workspace` and choose the folder where you cloned the project to. Alternatively, in OSX, you can just drag the folder from Finder onto the VS Code icon in your dock. From here you will need to open the terminal, `Terminal → New Terminal`.
-
-Now you can enter the command to install it:
-```bash 
-npm install
-```
-
-### Step 3
-
-Now that you have the project and all the dependencies installed, you can start developing. To start working on your project, enter the following command into the terminal:
-```bash 
-npm run dev
-```
-
-This puts the project into development mode which will watch any of the files you're working on for changes. Next time you save an edit to HTML, CSS, Javascript, or add in some img assets, the plugin will automatically build a new version. Your plugin will get assembled in the `dist` directory. This is the directory you will point Figma to when installing the plugin locally.
-
-### Step 4
-
-Okay, so you're done creating your plugin and it's ready for use or to be submitted to Figma. What's next? There is just one more command to run. This command will build the final version of your plugin and minify all of your code, and remove any unused CSS, to reduce it down to the smallest file size possible.
-```bash 
-npm run build
-```
+## Spiral Helix Examples at 60° isometric angle
+![helix_spiral_examples](https://user-images.githubusercontent.com/2822227/45360142-89150700-b583-11e8-912b-6972eb293bd7.png)
 
 
-## FAQ
+# Reporting Issues, Feedback, More Info, ... 
+👋 Hi. Feel free to [open an issue here on Github](https://github.com/matej-marjanovic/6Spiral-Figma-Plugin/issues).
 
-**I noticed the main plugin code is a .ts file, what's that?!**
-That is a Typescript file—Typescript is a stricter way of writing Javascript that uses leverages definitions from the API you're writing code for, to help flag errors while you're writing code. On the surface, this seems like a new language that you need to learn, but it's really not. Typescript will get compiled to Javascript when you run the build, so you can just write Javascript in this file.
+[This medium article has some of the same info but also includes more ideas and suggestions on where to use this plugin.](https://medium.com/@matejmarjanovic/4a921c13f5ef)
 
-The good news is that this can really help you in a couple of major ways. First, the definitions in the `src/main/figma.d.ts` file will allow your code editor to autocomplete the code you're writing with suggestions specific to the Figma API. This can save you time and from making mistakes like typos. Second, the squiggly underlines or errors you get can help flag parts of your code that may break when you run it. For example, you may try to do modify something about a node the user has selected on the Figma canvas. If you tried to access a property like `cornerRadius` on a selection, Typescript would flag an error `Property 'cornerRadius' does not exist on type 'SceneNode'.`. Why? Because not every node is guaranteed to have a `cornerRadius` property. It can help you ensure that you're writing code with good error handling and type checking so that your code doesn't break. The [Figma Plugin API](https://www.figma.com/plugin-docs/typescript/) documentation has a great deep dive that goes into WAY more details.
+Thanks to [Sures](https://github.com/sureskumar/) for feedback on the beta version of the original Sketch plugin.
+
+## Known Issues
+
+- Setting some of the parameters to just the minus sign can make the spiral dissapear. Simply close and reopen the plugin (you will have to change the parameters again from the defaults). If you're setting a negative value, make sure that you're adding a minus in front of a number, not just a minus on its own.
+- Having too much fun with 6Spiral can cause Sketch to crash sometimes 😅.
+
+Issues can also be mitigated/lessened by disabling the "Continously Update" option and pressing the "Update Spiral" each time you want to update the spiral to the changed parameters.
+
+## A few resources that I found useful for developing this Sketch Plugin
+This plugin was built using Thomas Lowry's boilerplate for Figma plugins:
+- https://github.com/thomas-lowry/figma-plugin-boilerplate
+
+Official Figma plugin docs:
+- https://www.figma.com/plugin-docs/
+
+
