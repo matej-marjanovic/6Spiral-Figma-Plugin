@@ -54,7 +54,7 @@ Thanks to [Sures](https://github.com/sureskumar/) for feedback on the beta versi
 
 Issues can also be mitigated/lessened by disabling the "Continously Update" option and pressing the "Update Spiral" each time you want to update the spiral to the changed parameters.
 
-## A few resources that I found useful for developing this Sketch Plugin
+## A few resources that I found useful for developing this Figma Plugin
 This plugin was built with the help of Thomas Lowry's boilerplate for Figma plugins:
 - https://github.com/thomas-lowry/figma-plugin-boilerplate
 
