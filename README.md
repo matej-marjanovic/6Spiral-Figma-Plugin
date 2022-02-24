@@ -8,8 +8,10 @@
 [![License: MIT](https://img.shields.io/badge/works_with-Figma-blue.svg)](https://www.figma.com/community/plugin/1074706773545183504)
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Make%20great%20looking%20spiral%20and%20helix%20shapes%20in%20Figma&url=https://github.com/matej-marjanovic/6Spiral-Figma-Plugin&hashtags=design,sketch,sketchapp,uiux)
 
-6Spiral is a Figma plugin to draw spirals and it also allows you to convert the 2D spirals into 3D-like helix shapes at a specified angle in parallel projection.
-6Spirals supports creation of the two most common types of spirals: Archimedean Spirals and Logarithmic Spirals.
+**With 6Spiral you can draw spirals and 3D-like helix shapes at a specified angle in parallel projection.**
+
+6Spirals supports creation of the two most common types of spirals: **Archimedean Spirals** and **Logarithmic Spirals**.
+
 *This plugin is based on a plugin that I originally developed for Sketch but that plugin no longer works with the latest version of Sketch.*
 
 # Getting Started
@@ -53,7 +55,7 @@ Thanks to [Sures](https://github.com/sureskumar/) for feedback on the beta versi
 Issues can also be mitigated/lessened by disabling the "Continously Update" option and pressing the "Update Spiral" each time you want to update the spiral to the changed parameters.
 
 ## A few resources that I found useful for developing this Sketch Plugin
-This plugin was built using Thomas Lowry's boilerplate for Figma plugins:
+This plugin was built with the help of Thomas Lowry's boilerplate for Figma plugins:
 - https://github.com/thomas-lowry/figma-plugin-boilerplate
 
 Official Figma plugin docs:
