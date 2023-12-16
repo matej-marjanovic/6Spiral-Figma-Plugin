@@ -2,22 +2,21 @@
 
 # 🌀6Spiral Figma Plugin v1.0
 
-[![Price: free](https://img.shields.io/badge/price-FREE-0098f7.svg)](https://github.com/matej-marjanovic/6Spiral-Sketch-Plugin/blob/master/LICENSE.txt)
-[![Version: 1.0](https://img.shields.io/badge/version-1.0_-green.svg)](https://github.com/matej-marjanovic/6Spiral-Sketch-Plugin/releases)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/matej-marjanovic/6Spiral-Sketch-Plugin/blob/master/LICENSE.txt)
+[![Price: free](https://img.shields.io/badge/price-FREE-0098f7.svg)](https://github.com/matej-marjanovic/6Spiral-Figma-Plugin/blob/master/LICENSE.txt)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/matej-marjanovic/6Spiral-Figma-Plugin/blob/master/LICENSE.txt)
 [![License: MIT](https://img.shields.io/badge/works_with-Figma-blue.svg)](https://www.figma.com/community/plugin/1074706773545183504)
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Make%20great%20looking%20spiral%20and%20helix%20shapes%20in%20Figma&url=https://github.com/matej-marjanovic/6Spiral-Figma-Plugin&hashtags=design,sketch,sketchapp,uiux)
 
 **With 6Spiral you can draw spirals and 3D-like helix shapes at a specified angle in parallel projection.**
 
-6Spirals supports creation of the two most common types of spirals: **Archimedean Spirals** and **Logarithmic Spirals**.
+6Spirals supports the creation of the two most common types of spirals: **Archimedean Spirals** and **Logarithmic Spirals**.
 
 *This plugin is based on a plugin that I originally developed for Sketch but that plugin no longer works with the latest version of Sketch.*
 
 # Getting Started
 
 1. Install the [latest release](https://www.figma.com/community/plugin/1074706773545183504) 
-3. Make or select a shape/artboard and then right click and go to `Plugins -> 🌀6Spiral`  
+3. Make or select a shape/artboard and then right-click and go to `Plugins -> 🌀6Spiral`  
 4. Change the parameters to make the initial shape of the spiral/helix that you'd like.
 
 <img width="506" alt="6spiral_demo_1" src="https://user-images.githubusercontent.com/2822227/45353519-dd15f080-b56f-11e8-91e1-05ce76b5ff1a.png">
@@ -49,10 +48,10 @@ Thanks to [Sures](https://github.com/sureskumar/) for feedback on the beta versi
 
 ## Known Issues
 
-- Setting some of the parameters to just the minus sign can make the spiral dissapear. Simply close and reopen the plugin (you will have to change the parameters again from the defaults). If you're setting a negative value, make sure that you're adding a minus in front of a number, not just a minus on its own.
+- Setting some of the parameters to just the minus sign can make the spiral disappear. Simply close and reopen the plugin (you will have to change the parameters again from the defaults). If you're setting a negative value, make sure that you're adding a minus in front of a number, not just a minus on its own.
 - Having too much fun with 6Spiral can cause Sketch to crash sometimes 😅.
 
-Issues can also be mitigated/lessened by disabling the "Continously Update" option and pressing the "Update Spiral" each time you want to update the spiral to the changed parameters.
+Issues can also be mitigated/lessened by disabling the "Continuously Update" option and pressing the "Update Spiral" each time you want to update the spiral to the changed parameters.
 
 ## A few resources that I found useful for developing this Figma Plugin
 This plugin was built with the help of Thomas Lowry's boilerplate for Figma plugins:
