@@ -49,7 +49,6 @@ Thanks to [Sures](https://github.com/sureskumar/) for feedback on the beta versi
 ## Known Issues
 
 - Setting some of the parameters to just the minus sign can make the spiral disappear. Simply close and reopen the plugin (you will have to change the parameters again from the defaults). If you're setting a negative value, make sure that you're adding a minus in front of a number, not just a minus on its own.
-- Having too much fun with 6Spiral can cause Sketch to crash sometimes 😅.
 
 Issues can also be mitigated/lessened by disabling the "Continuously Update" option and pressing the "Update Spiral" each time you want to update the spiral to the changed parameters.
 
