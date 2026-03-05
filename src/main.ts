@@ -6,7 +6,7 @@ const SPIRAL_CONSTANTS = {
 };
 
 export default function () {
-  showUI({ width: 400, height: 620 });
+  showUI({ width: 400, height: 620, themeColors: true });
 
   let svgPath: SceneNode | false = false;
 

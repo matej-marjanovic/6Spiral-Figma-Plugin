@@ -114,7 +114,7 @@ function Plugin() {
   return (
     <Container space="medium">
       <VerticalSpace space="medium" />
-      <Text style={{ color: '#777' }}>Spiral Type:</Text>
+      <Text class="text-[var(--figma-color-text-secondary)]">Spiral Type:</Text>
       <VerticalSpace space="small" />
       <Dropdown
         onChange={(event) => setSpiralType(event.currentTarget.value)}
@@ -129,44 +129,44 @@ function Plugin() {
 
       <div class="flex gap-2">
         <div class="flex-1">
-          <Text style={{ color: '#777' }}>Inner Radius:</Text>
+          <Text class="text-[var(--figma-color-text-secondary)]">Inner Radius:</Text>
           <VerticalSpace space="small" />
           <TextboxNumeric value={innerRadius} onNumericValueInput={(v) => setInnerRadius(v !== null ? v.toString() : '0')} />
         </div>
         <div class="flex-1">
-          <Text style={{ color: '#777' }}>Outer Radius:</Text>
+          <Text class="text-[var(--figma-color-text-secondary)]">Outer Radius:</Text>
           <VerticalSpace space="small" />
           <TextboxNumeric value={outerRadius} onNumericValueInput={(v) => setOuterRadius(v !== null ? v.toString() : '0')} />
         </div>
       </div>
 
       {minLogRadiusWarn && (
-        <div class="mt-2 text-xs text-orange-600 flex items-center gap-1 bg-orange-100 p-1 rounded">
+        <div class="mt-2 text-[11px] text-[var(--figma-color-text-warning)] flex items-center gap-1 bg-[var(--figma-color-bg-warning)] p-1 rounded border border-[var(--figma-color-border-warning)]">
           Minimum radius applied to logarithmic spiral can't be less than 1.0.
         </div>
       )}
       {minArchRadiusWarn && (
-        <div class="mt-2 text-xs text-orange-600 flex items-center gap-1 bg-orange-100 p-1 rounded">
+        <div class="mt-2 text-[11px] text-[var(--figma-color-text-warning)] flex items-center gap-1 bg-[var(--figma-color-bg-warning)] p-1 rounded border border-[var(--figma-color-border-warning)]">
           Both Inner and Outer radius can't be 0. Forcing outer radius to 1.0.
         </div>
       )}
 
       <VerticalSpace space="large" />
 
-      <Text style={{ color: '#777' }}>Rotation in degrees and full rotations:</Text>
+      <Text class="text-[var(--figma-color-text-secondary)]">Rotation in degrees and full rotations:</Text>
       <VerticalSpace space="small" />
       <div class="flex gap-2">
         <div class="flex-1 flex items-center gap-2">
-          <Text style={{ color: '#777' }} class="w-12">Deg</Text>
+          <Text class="text-[var(--figma-color-text-secondary)] w-12">Deg</Text>
           <TextboxNumeric value={degrees} onNumericValueInput={(v) => handleDegreesChange(v !== null ? v.toString() : '0')} />
         </div>
         <div class="flex-1 flex items-center gap-2">
-          <Text style={{ color: '#777' }} class="w-12">Rot</Text>
+          <Text class="text-[var(--figma-color-text-secondary)] w-12">Rot</Text>
           <TextboxNumeric value={rotations} onNumericValueInput={(v) => handleRotationsChange(v !== null ? v.toString() : '0')} incrementBig={1} incrementSmall={0.125} />
         </div>
       </div>
 
-      <div class="mt-2 text-xs text-gray-500 bg-gray-100 p-1 rounded">
+      <div class="mt-2 text-[11px] text-[var(--figma-color-text)] bg-[var(--figma-color-bg-secondary)] p-1 rounded border border-[var(--figma-color-border)]">
         {currentSpiralType === SPIRAL_CONSTANTS.SPIRAL_TYPE_ARCHIMEDEAN ? (
           `Gap of ${spiralGap.toFixed(2)} after each rotation of the spiral`
         ) : (
@@ -178,17 +178,17 @@ function Plugin() {
 
       <div class="flex gap-2">
         <div class="flex-1">
-          <Text style={{ color: '#777' }}># of points:</Text>
+          <Text class="text-[var(--figma-color-text-secondary)]"># of points:</Text>
           <VerticalSpace space="small" />
           <TextboxNumeric value={points} onNumericValueInput={(v) => setPoints(v !== null ? v.toString() : '0')} />
-          <div class="mt-2 text-xs text-gray-500 bg-gray-100 p-1 rounded">
+          <div class="mt-2 text-[11px] text-[var(--figma-color-text)] bg-[var(--figma-color-bg-secondary)] p-1 rounded border border-[var(--figma-color-border)]">
             Point every {degreeIncrement.toFixed(2)} degrees
             {pPoints < 2 ? ' - USING 2 POINTS' : ''}
             {pDegrees < 1 ? ' - USING ROTATION of 1°' : ''}
           </div>
         </div>
         <div class="flex-1">
-          <Text style={{ color: '#777' }}>Line width:</Text>
+          <Text class="text-[var(--figma-color-text-secondary)]">Line width:</Text>
           <VerticalSpace space="small" />
           <TextboxNumeric value={lineWidth} onNumericValueInput={(v) => setLineWidth(v !== null ? v.toString() : '0')} />
         </div>
@@ -196,7 +196,7 @@ function Plugin() {
 
       <VerticalSpace space="large" />
 
-      <div class="border border-gray-300 rounded p-3 bg-gray-50">
+      <div class="border border-[var(--figma-color-border)] rounded p-3 bg-[var(--figma-color-bg-secondary)]">
         <div class="flex gap-4 mb-4">
           <Checkbox value={shouldMakeHelix} onChange={(e) => setShouldMakeHelix(e.currentTarget.checked)}>
             <Text>Make helix from spiral</Text>
@@ -208,24 +208,24 @@ function Plugin() {
 
         <div class="flex gap-2 mb-4">
           <div class="flex-1 flex items-center gap-2">
-            <Text style={{ color: '#777' }} class="w-16">Total Δx</Text>
+            <Text class="text-[var(--figma-color-text-secondary)] w-16">Total Δx</Text>
             <TextboxNumeric value={helixOffsetX} onNumericValueInput={(v) => setHelixOffsetX(v !== null ? v.toString() : '0')} />
           </div>
           <div class="flex-1 flex items-center gap-2">
-            <Text style={{ color: '#777' }} class="w-16">Total Δy</Text>
+            <Text class="text-[var(--figma-color-text-secondary)] w-16">Total Δy</Text>
             <TextboxNumeric value={helixOffsetY} onNumericValueInput={(v) => setHelixOffsetY(v !== null ? v.toString() : '0')} />
           </div>
         </div>
 
-        <Text style={{ color: '#777' }}>Set parallel projection angle (width/height ratio):</Text>
+        <Text class="text-[var(--figma-color-text-secondary)]">Set parallel projection angle (width/height ratio):</Text>
         <VerticalSpace space="small" />
         <div class="flex gap-2">
           <div class="flex-1 flex items-center gap-2">
-            <Text style={{ color: '#777' }} class="w-16">Angle</Text>
+            <Text class="text-[var(--figma-color-text-secondary)] w-16">Angle</Text>
             <TextboxNumeric value={helixIsoAngle} onNumericValueInput={(v) => handleIsoAngleChange(v !== null ? v.toString() : '0')} />
           </div>
           <div class="flex-1 flex items-center gap-2">
-            <Text style={{ color: '#777' }} class="w-16">H/W ratio</Text>
+            <Text class="text-[var(--figma-color-text-secondary)] w-16">H/W ratio</Text>
             <TextboxNumeric value={helixHWRatio} onNumericValueInput={(v) => handleHWRatioChange(v !== null ? v.toString() : '0')} incrementSmall={0.001} incrementBig={0.1} />
           </div>
         </div>
