@@ -11,6 +11,12 @@
 
 ### Build the plugin
 
+Install the dependencies:
+
+```
+$ npm install
+```
+
 To build the plugin:
 
 ```
