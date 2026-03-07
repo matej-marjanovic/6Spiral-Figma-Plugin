@@ -1,4 +1,4 @@
-import { render, Container, Text, TextboxNumeric, Toggle, Dropdown, Button, VerticalSpace, Checkbox } from '@create-figma-plugin/ui';
+import { render, Container, Text, TextboxNumeric, Toggle, Dropdown, Button, VerticalSpace, Checkbox, RangeSlider } from '@create-figma-plugin/ui';
 import { emit } from '@create-figma-plugin/utilities';
 import { h } from 'preact';
 import { useState, useEffect, useRef } from 'preact/hooks';
@@ -25,6 +25,9 @@ function Plugin() {
 
   const previewContainerRef = useRef<HTMLDivElement>(null);
   const [previewContainerWidth, setPreviewContainerWidth] = useState(400);
+
+  const [autoScalePreview, setAutoScalePreview] = useState(true);
+  const [manualScalePct, setManualScalePct] = useState('100');
 
   useEffect(() => {
     if (previewContainerRef.current) {
@@ -76,7 +79,26 @@ function Plugin() {
   };
 
   const { path: previewPath, maxExtent } = makeSpiralPoints(spiralData);
-  const previewScalePercentage = maxExtent > 0 ? ((previewContainerWidth - 20) / (2 * maxExtent) * 100).toFixed(0) : '0'; // -20 for 10px padding on each side
+
+  let currentScalePct = maxExtent > 0 ? ((previewContainerWidth - 20) / (2 * maxExtent) * 100) : 0;
+  let finalViewBoxExtent = maxExtent;
+
+  if (autoScalePreview) {
+    // If auto scaling is on, we compute what the final percentage will be.
+    // Sync the manual state just so if they turn auto scale off, it starts from where it was.
+    if (Math.round(currentScalePct) !== parseInt(manualScalePct, 10)) {
+      setManualScalePct(Math.round(currentScalePct).toString());
+    }
+  } else {
+    // If auto scaling is off, we read the user's manual scale % to determine what the maxExtent should be visually.
+    currentScalePct = parseInt(manualScalePct, 10) || 100;
+
+    // Reverse the calculation to find the extent needed to match their zoom level.
+    // previewContainerWidth - 20 = currentScalePct / 100 * (2 * finalViewBoxExtent)
+    finalViewBoxExtent = (previewContainerWidth - 20) / (currentScalePct / 100) / 2;
+  }
+
+  const previewScaleStr = Math.round(currentScalePct).toString();
 
   const sendSpiralData = () => {
     emit('create-spiral', spiralData);
@@ -132,15 +154,31 @@ function Plugin() {
         <svg
           width="100%"
           height="100%"
-          viewBox={`-${maxExtent} -${maxExtent} ${maxExtent * 2} ${maxExtent * 2}`}
+          viewBox={`-${finalViewBoxExtent} -${finalViewBoxExtent} ${finalViewBoxExtent * 2} ${finalViewBoxExtent * 2}`}
           xmlns="http://www.w3.org/2000/svg"
         >
           <path d={previewPath} fill="none" stroke="black" stroke-width={pLineWidth} />
         </svg>
         <div class="absolute bottom-2 right-2 text-xs text-gray-400 bg-white/80 px-1 rounded pointer-events-none">
-          {previewScalePercentage}%
+          {previewScaleStr}%
         </div>
       </div>
+
+      <div class="flex items-center gap-2 mb-4">
+        <Toggle value={autoScalePreview} onChange={(e) => setAutoScalePreview(e.currentTarget.checked)}>
+          <Text>Auto-scale preview</Text>
+        </Toggle>
+        <div class="flex-1 ml-4" style={{ opacity: autoScalePreview ? 0.5 : 1 }}>
+          <RangeSlider
+            disabled={autoScalePreview}
+            minimum={10}
+            maximum={300}
+            value={manualScalePct}
+            onValueInput={setManualScalePct}
+          />
+        </div>
+      </div>
+
       <Text class="text-[var(--figma-color-text-secondary)]">Spiral Type:</Text>
       <VerticalSpace space="small" />
       <Dropdown
