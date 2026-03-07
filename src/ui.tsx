@@ -24,10 +24,12 @@ function Plugin() {
   const [continuouslyUpdate, setContinuouslyUpdate] = useState(true);
 
   const previewContainerRef = useRef<HTMLDivElement>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
   const [previewContainerWidth, setPreviewContainerWidth] = useState(400);
 
   const [autoScalePreview, setAutoScalePreview] = useState(true);
   const [manualScalePct, setManualScalePct] = useState('100');
+  const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
     if (previewContainerRef.current) {
@@ -85,10 +87,6 @@ function Plugin() {
 
   if (autoScalePreview) {
     // If auto scaling is on, we compute what the final percentage will be.
-    // Sync the manual state just so if they turn auto scale off, it starts from where it was.
-    if (Math.round(currentScalePct) !== parseInt(manualScalePct, 10)) {
-      setManualScalePct(Math.round(currentScalePct).toString());
-    }
   } else {
     // If auto scaling is off, we read the user's manual scale % to determine what the maxExtent should be visually.
     currentScalePct = parseInt(manualScalePct, 10) || 100;
@@ -98,10 +96,26 @@ function Plugin() {
     finalViewBoxExtent = (previewContainerWidth - 20) / (currentScalePct / 100) / 2;
   }
 
+  useEffect(() => {
+    if (autoScalePreview && Math.round(currentScalePct) !== parseInt(manualScalePct, 10)) {
+      setManualScalePct(Math.round(currentScalePct).toString());
+    }
+  }, [autoScalePreview, currentScalePct, manualScalePct]);
+
   const previewScaleStr = Math.round(currentScalePct).toString();
 
   const sendSpiralData = () => {
     emit('create-spiral', spiralData);
+  };
+
+  const copySvgToClipboard = () => {
+    if (svgRef.current) {
+      const svgString = new XMLSerializer().serializeToString(svgRef.current);
+      navigator.clipboard.writeText(svgString).then(() => {
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 2000);
+      });
+    }
   };
 
   useEffect(() => {
@@ -152,6 +166,7 @@ function Plugin() {
         style={{ aspectRatio: '1/1' }}
       >
         <svg
+          ref={svgRef}
           width="100%"
           height="100%"
           viewBox={`-${finalViewBoxExtent} -${finalViewBoxExtent} ${finalViewBoxExtent * 2} ${finalViewBoxExtent * 2}`}
@@ -159,6 +174,14 @@ function Plugin() {
         >
           <path d={previewPath} fill="none" stroke="black" stroke-width={pLineWidth} />
         </svg>
+
+        <button
+          class="absolute bottom-2 left-2 text-xs text-[var(--figma-color-text)] bg-[var(--figma-color-bg-secondary)] border border-[var(--figma-color-border)] px-2 py-1 rounded shadow-sm hover:bg-[var(--figma-color-bg-hover)] active:bg-[var(--figma-color-bg-pressed)] transition-colors cursor-pointer"
+          onClick={copySvgToClipboard}
+        >
+          {isCopied ? 'Copied!' : 'Copy as SVG'}
+        </button>
+
         <div class="absolute bottom-2 right-2 text-xs text-gray-400 bg-white/80 px-1 rounded pointer-events-none">
           {previewScaleStr}%
         </div>
