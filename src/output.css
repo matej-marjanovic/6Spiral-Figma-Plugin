@@ -7,7 +7,10 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
+    --color-gray-100: oklch(96.7% 0.003 264.542);
+    --color-gray-300: oklch(87.2% 0.01 258.338);
     --color-gray-400: oklch(70.7% 0.022 261.325);
+    --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
     --text-xs: 0.75rem;
@@ -167,11 +170,17 @@
   }
 }
 @layer utilities {
+  .pointer-events-auto {
+    pointer-events: auto;
+  }
   .pointer-events-none {
     pointer-events: none;
   }
   .absolute {
     position: absolute;
+  }
+  .fixed {
+    position: fixed;
   }
   .relative {
     position: relative;
@@ -243,6 +252,9 @@
   .border-\[var\(--figma-color-border-warning\)\] {
     border-color: var(--figma-color-border-warning);
   }
+  .border-gray-300 {
+    border-color: var(--color-gray-300);
+  }
   .bg-\[var\(--figma-color-bg-secondary\)\] {
     background-color: var(--figma-color-bg-secondary);
   }
@@ -292,6 +304,9 @@
   .text-\[var\(--figma-color-text-warning\)\] {
     color: var(--figma-color-text-warning);
   }
+  .text-black {
+    color: var(--color-black);
+  }
   .text-gray-400 {
     color: var(--color-gray-400);
   }
@@ -304,16 +319,11 @@
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
-  .hover\:bg-\[var\(--figma-color-bg-hover\)\] {
+  .hover\:bg-gray-100 {
     &:hover {
       @media (hover: hover) {
-        background-color: var(--figma-color-bg-hover);
+        background-color: var(--color-gray-100);
       }
-    }
-  }
-  .active\:bg-\[var\(--figma-color-bg-pressed\)\] {
-    &:active {
-      background-color: var(--figma-color-bg-pressed);
     }
   }
 }

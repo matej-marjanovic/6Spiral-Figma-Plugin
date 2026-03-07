@@ -111,10 +111,27 @@ function Plugin() {
   const copySvgToClipboard = () => {
     if (svgRef.current) {
       const svgString = new XMLSerializer().serializeToString(svgRef.current);
-      navigator.clipboard.writeText(svgString).then(() => {
-        setIsCopied(true);
-        setTimeout(() => setIsCopied(false), 2000);
-      });
+
+      const textArea = document.createElement('textarea');
+      textArea.value = svgString;
+      // Avoid scrolling to bottom
+      textArea.style.top = '0';
+      textArea.style.left = '0';
+      textArea.style.position = 'fixed';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+        document.execCommand('copy');
+      } catch (err) {
+        console.error('Fallback: Oops, unable to copy', err);
+      }
+
+      document.body.removeChild(textArea);
+
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
     }
   };
 
@@ -176,7 +193,7 @@ function Plugin() {
         </svg>
 
         <button
-          class="absolute bottom-2 left-2 text-xs text-[var(--figma-color-text)] bg-[var(--figma-color-bg-secondary)] border border-[var(--figma-color-border)] px-2 py-1 rounded shadow-sm hover:bg-[var(--figma-color-bg-hover)] active:bg-[var(--figma-color-bg-pressed)] transition-colors cursor-pointer"
+          class="absolute bottom-2 left-2 px-2 py-1 text-xs rounded border border-gray-300 bg-white hover:bg-gray-100 text-black pointer-events-auto shadow-sm transition-colors cursor-pointer"
           onClick={copySvgToClipboard}
         >
           {isCopied ? 'Copied!' : 'Copy as SVG'}

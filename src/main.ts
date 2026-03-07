@@ -28,6 +28,8 @@ export default function () {
     }
   });
 
+  // Wait, Figma removed `figma.clipboard` API support or maybe never had it, let's revert to a better UI-based clipboard write since that is the officially supported method for plugins (plugins must copy from the UI iframe).
+
   on('done', () => {
     figma.closePlugin();
   });
