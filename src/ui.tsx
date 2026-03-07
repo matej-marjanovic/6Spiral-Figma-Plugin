@@ -1,13 +1,9 @@
 import { render, Container, Text, TextboxNumeric, Toggle, Dropdown, Button, VerticalSpace, Checkbox } from '@create-figma-plugin/ui';
 import { emit } from '@create-figma-plugin/utilities';
 import { h } from 'preact';
-import { useState, useEffect } from 'preact/hooks';
+import { useState, useEffect, useRef } from 'preact/hooks';
 import '!./output.css';
-
-const SPIRAL_CONSTANTS = {
-  SPIRAL_TYPE_ARCHIMEDEAN: 0,
-  SPIRAL_TYPE_LOGARITHIMIC: 1
-};
+import { SPIRAL_CONSTANTS, makeSpiralPoints } from './spiral';
 
 function Plugin() {
   const [spiralType, setSpiralType] = useState('Archimedean Spiral');
@@ -26,6 +22,15 @@ function Plugin() {
   const [helixHWRatio, setHelixHWRatio] = useState<string>('0.500');
 
   const [continuouslyUpdate, setContinuouslyUpdate] = useState(true);
+
+  const previewContainerRef = useRef<HTMLDivElement>(null);
+  const [previewContainerWidth, setPreviewContainerWidth] = useState(400);
+
+  useEffect(() => {
+    if (previewContainerRef.current) {
+      setPreviewContainerWidth(previewContainerRef.current.clientWidth);
+    }
+  }, []);
 
   // Derived state warnings
   const currentSpiralType = spiralType === 'Archimedean Spiral' ? SPIRAL_CONSTANTS.SPIRAL_TYPE_ARCHIMEDEAN : SPIRAL_CONSTANTS.SPIRAL_TYPE_LOGARITHIMIC;
@@ -55,21 +60,26 @@ function Plugin() {
 
   const degreeIncrement = pDegrees / Math.floor(pPoints);
 
+  const spiralData = {
+    currentSpiralType: currentSpiralType,
+    innerRadius: Math.round(pInnerRadius),
+    outerRadius: Math.round(pOuterRadius),
+    degrees: Math.round(pDegrees),
+    points: Math.round(pPoints),
+    lineWidth: pLineWidth,
+    shouldMakeHelix,
+    shouldAdjustHelixHeight,
+    helixOffsetX: pHelixOffsetX,
+    helixOffsetY: pHelixOffsetY,
+    helixHWRatio: pHelixHWRatio,
+    helixIsoAngle: pHelixIsoAngle
+  };
+
+  const { path: previewPath, maxExtent } = makeSpiralPoints(spiralData);
+  const previewScalePercentage = maxExtent > 0 ? ((previewContainerWidth - 20) / (2 * maxExtent) * 100).toFixed(0) : '0'; // -20 for 10px padding on each side
+
   const sendSpiralData = () => {
-    emit('create-spiral', {
-      currentSpiralType: currentSpiralType,
-      innerRadius: Math.round(pInnerRadius),
-      outerRadius: Math.round(pOuterRadius),
-      degrees: Math.round(pDegrees),
-      points: Math.round(pPoints),
-      lineWidth: pLineWidth,
-      shouldMakeHelix,
-      shouldAdjustHelixHeight,
-      helixOffsetX: pHelixOffsetX,
-      helixOffsetY: pHelixOffsetY,
-      helixHWRatio: pHelixHWRatio,
-      helixIsoAngle: pHelixIsoAngle
-    });
+    emit('create-spiral', spiralData);
   };
 
   useEffect(() => {
@@ -114,6 +124,23 @@ function Plugin() {
   return (
     <Container space="medium">
       <VerticalSpace space="medium" />
+      <div
+        ref={previewContainerRef}
+        class="bg-white rounded-[8px] p-[10px] w-full relative mb-4 flex justify-center items-center"
+        style={{ aspectRatio: '1/1' }}
+      >
+        <svg
+          width="100%"
+          height="100%"
+          viewBox={`-${maxExtent} -${maxExtent} ${maxExtent * 2} ${maxExtent * 2}`}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d={previewPath} fill="none" stroke="black" stroke-width={pLineWidth} />
+        </svg>
+        <div class="absolute bottom-2 right-2 text-xs text-gray-400 bg-white/80 px-1 rounded pointer-events-none">
+          {previewScalePercentage}%
+        </div>
+      </div>
       <Text class="text-[var(--figma-color-text-secondary)]">Spiral Type:</Text>
       <VerticalSpace space="small" />
       <Dropdown
@@ -234,7 +261,7 @@ function Plugin() {
       <VerticalSpace space="large" />
 
       <Toggle value={continuouslyUpdate} onChange={(e) => setContinuouslyUpdate(e.currentTarget.checked)}>
-        <Text>Continuously Update</Text>
+        <Text>Continuously Update in Figma Canvas</Text>
       </Toggle>
 
       <VerticalSpace space="large" />
